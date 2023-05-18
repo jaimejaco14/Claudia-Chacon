@@ -1,0 +1,1 @@
+delete_hor_salon

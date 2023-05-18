@@ -1,0 +1,4 @@
+RewriteEngine On    # Turn on the rewriting engine
+RewriteRule ^client$ cliente.php [NC,L]
+RewriteRule ^salones$ salones.php [NC,L]
+RewriteRule ^client/([0-9_-]*)$ cliente.php?id=$1 [NC,L]

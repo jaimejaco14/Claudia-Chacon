@@ -1,0 +1,38 @@
+jQuery(document).ready(function( $ ){
+
+   function guardarNombre(){
+alert("si");
+}
+    document.getElementById('document-client').addEventListener('input', function(){
+        let valorIngresado = document.getElementById('document-client').value;
+       
+         if(valorIngresado.length > 4){
+	   $("#client-list").html(""); 
+           optenerClient(valorIngresado);
+        }else{
+	$("#client-list").html("");
+}        
+    });
+
+    function optenerClient(cedula){
+        $.ajax({
+        type: "GET",
+            url: "http://beautysoft.claudiachacon.com/beauty/beauty-pdv/restapi/items/cliente.php",
+            data: { documento: cedula },
+            success: function(data) {
+                console.log(data);
+                for(let i = 0; i < data.length; i++){
+		console.log(data[i].razonsocial);
+//		$("#client-list").append('<option style="cursor: pointer" onclick="guardarNombre("+data[i].razonsocial+") value="+data[i].documento+">"+data[i].razonsocial+"</option>');
+//              $("#client-list").append("<option style='cursor:pointer' onclick='guardarNombre(data[i].razonsocial)' value='"+data[i].documento+"'>"+data[i].razonsocial+"</option>");
+//        $("#client-list").append("<option style='cursor:pointer' value='"+data[i].documento+"' onclick='guardarNombre("+data[i].razonsocial+")'>"+data[i].razonsocial+"</option>"); 
+ $("#client-list").append("<option style='cursor:pointer' value='"+data[i].documento+"' onclick='guardarNombre()'>"+data[i].razonsocial+"</option>");
+              }
+                
+            }
+        });
+    }
+    
+
+    });
+    

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<conexiones>
+   <conexion>
+      <codigo>01</codigo>
+      <nombre>beauty_erp</nombre>
+      <alias>INVELCON S.A.S</alias>
+   </conexion>
+ <conexion>
+      <codigo>02</codigo>
+      <nombre>beauty_erp_test</nombre>
+      <alias>ACME S.A.S</alias>
+   </conexion>
+</conexiones>

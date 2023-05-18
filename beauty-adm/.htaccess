@@ -1,0 +1,17 @@
+# Instruct the browser to always check for the latest version of images and files using Apache directives
+<IfModule mod_headers.c>
+	<FilesMatch "(?i)^.*\.(pdf)$">
+		Header set Cache-Control "max-age=0,must-revalidate"
+	</FilesMatch>
+</IfModule>
+<IfModule mod_headers.c>
+	<FilesMatch "(?i)^.*\.(jpg)$">
+		Header set Cache-Control "max-age=0,must-revalidate"
+	</FilesMatch>
+</IfModule>
+<IfModule mod_headers.c>
+	<FilesMatch "(?i)^.*\.(jpeg)$">
+		Header set Cache-Control "max-age=0,must-revalidate"
+	</FilesMatch>
+</IfModule>
+Options All -Indexes

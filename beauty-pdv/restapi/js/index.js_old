@@ -1,0 +1,89 @@
+let nombreCliente = document.getElementById("name-client");
+
+function guardarNombre(nombre) {
+document.querySelector("#client-list").innerHTML = "";
+  document.getElementById("name-client").innerHTML = nombre;
+
+}
+
+function fechaTurno(salon_id){
+    var fecha = new Date();
+    var diasSemana = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    var diaActual = diasSemana[fecha.getDay()];
+
+    console.log(salon_id, diaActual);
+  }
+
+
+function salonesHora(salon){
+  // let myInput = document.getElementById('select-date');
+  // let myDate = myInput.value; // devuelve una cadena en el formato yyyy-mm-dd 
+  // alert(salon, myDate);
+
+  const xhr = new XMLHttpRequest();
+
+  xhr.open("GET", "http://beautysoft.claudiachacon.com/beauty/beauty-pdv/restapi/items/turnos.php?salon_id="+salon+"");
+  xhr.send();
+  xhr.responseType = "json";
+  xhr.onload = () => {
+    if (xhr.readyState == 4 && xhr.status == 200) {
+      const data = xhr.response;
+      console.log(data);
+    } else {
+      console.log(`Error: ${xhr.status}`);
+    }
+  };
+  
+  
+  }
+
+jQuery(document).ready(function( $ ){
+
+    document.getElementById('document-client').addEventListener('input', function(){
+        let valorIngresado = document.getElementById('document-client').value;
+       
+         if(valorIngresado.length > 4){
+	   $("#client-list").html(""); 
+           optenerClient(valorIngresado);
+        }else{
+	$("#client-list").html("");
+}        
+    });
+
+    function optenerClient(cedula){
+        $.ajax({
+        type: "GET",
+            url: "http://beautysoft.claudiachacon.com/beauty/beauty-pdv/restapi/items/cliente.php",
+            data: { documento: cedula },
+            success: function(data) {
+                console.log(data);
+		//salones();
+                for(let i = 0; i < data.length; i++){
+		console.log(data[i].razonsocial);
+		$("#client-list").append("<option style='cursor:pointer' value='"+data[i].documento+"' onclick='guardarNombre(\""+data[i].razonsocial+"\")'>"+data[i].razonsocial+"</option>"); 
+             }
+                
+            }
+        });
+    }
+    
+  function salones(){
+    $.ajax({
+      type: "GET",
+      url: "http://beautysoft.claudiachacon.com/beauty/beauty-pdv/restapi/items/salones.php",
+      success: function (data) {
+        console.log(data);
+        for (let i = 0; i < data.length; i++) {
+          $("#salon-list").append(
+            "<option style='cursor:pointer'  onclick='salonesHora(\""+data[i].salon_id+"\")' value='" +
+              data[i].salon_id +
+              "'>" +
+              data[i].nombre_salon +
+              "</option>"
+          );
+        }
+      },
+    });
+  }
+salones()    
+})

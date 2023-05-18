@@ -1,0 +1,4 @@
+RewriteEngine On
+RewriteBase /beauty/beauty-pdv/restapi/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
